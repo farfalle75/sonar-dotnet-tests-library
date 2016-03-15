@@ -91,14 +91,19 @@ public class OpenCoverReportParser implements CoverageParser {
       }
     }
 
-    private void handleSegmentPointTag() {
-      int line = xmlParserHelper.getRequiredIntAttribute("sl");
-      int vc = xmlParserHelper.getRequiredIntAttribute("vc");
+	private void handleSegmentPointTag() {
+	  int line = xmlParserHelper.getRequiredIntAttribute("sl");
+	  int vc = xmlParserHelper.getRequiredIntAttribute("vc");
+	  String fileId = xmlParserHelper.getAttribute("fileid");
+	  if (fileId == null || fileId.trim() == ""){
+		fileId = fileRef;
 
-      if (files.containsKey(fileRef)) {
-        coverage.addHits(files.get(fileRef), line, vc);
-      }
-    }
+	  }
+
+	  if (files.containsKey(fileId)) {
+		coverage.addHits(files.get(fileId), line, vc);
+	  }
+	}
 
   }
 
